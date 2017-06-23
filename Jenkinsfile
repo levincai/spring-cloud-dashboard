@@ -1,14 +1,18 @@
 pipeline {
-  agent {
-    docker {
-      image 'library/maven'
-    }
-    
-  }
+  agent any
   stages {
     stage('test') {
       steps {
-        sh 'echo "test jsjajsa"'
+        parallel(
+          "test": {
+            sh 'echo "test jsjajsa"'
+            
+          },
+          "Build": {
+            sh 'echo "build"'
+            
+          }
+        )
       }
     }
   }
